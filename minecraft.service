@@ -5,13 +5,13 @@ Description=Minecraft_Server
 ExecStartPre=-/usr/bin/docker pull itzg/minecraft-server
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
-ExecStart=/usr/bin/docker run -e EULA=TRUE \
+ExecStart=/usr/bin/docker run \
+-e EULA=TRUE \
 -e OPS=vanceavalon \
 -e SEED=2270427831508044884 \
 -e 'MOTD=This is a test Docker Minecraft server, running in fleet, using the Avalon seed using 1GB of memory' \
--d -p 25564:25565 itzg/minecraft-server --name minecraft-docker
-ExecStartPost=-/usr/bin/docker rm %p
-ExecStop=/usr/bin/docker stop -t 10 %p
+-p 25564:25565 --name %p itzg/minecraft-server
+ExecStop=/usr/bin/docker stop -t 5 %p
 ExecStop=-/usr/bin/docker kill %p
 ExecStopPost=-/usr/bin/docker rm %p
 
